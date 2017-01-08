@@ -133,7 +133,6 @@ void recvWithStartEndMarkers() {
     char endMarker = '>';
     char rc;
  
- // if (Serial.available() > 0) {
     while (Serial.available() > 0 && newData == false) {
         rc = Serial.read();
 
@@ -160,9 +159,6 @@ void recvWithStartEndMarkers() {
 }
 
 void processNewData() {
-    /* Tipo di comunicazione:
-     * 0: striscia di LED
-     */
     int comType;
     if (newData == true) {
         char *strtokIndx;
@@ -170,12 +166,6 @@ void processNewData() {
         strtokIndx = strtok(receivedChars,",");
         comType = atoi(strtokIndx);
 
-        // Se l'input e' sulla posizione della vettura
-        // if (comType == 0) {
-            // strtokIndx = strtok(NULL, ",");
-            // posizioneVettura = atoi(strtokIndx);
-        // }
-        
         // Se l'input e' sui semafori
         if (comType == 1) {
             strtokIndx = strtok(NULL, ",");
@@ -202,7 +192,7 @@ void processNewData() {
             calcolaIntensitaLED();
             aggiornaLEDStriscia();
         }
-        // Se l'input e' su criterioDinamicoAttivo
+        // Se l'input e' su criterioDinamicoAttivo == false
         else if (comType == 4) {
             strtokIndx = strtok(NULL, ",");
             intensitaCriterioCostante = atoi(strtokIndx);
